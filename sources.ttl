@@ -36,10 +36,10 @@ fu:diseasome :maintainedBy [ foaf:name "Christian Bizer" ] ;
 		dct:subject dis:genes ;
 		dct:issued "2008-06-04T00:00:00"^^xsd:dateTime .
 
-::microarrayGenelistsV0 void:sparqlEndpoint <http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php> ;
+:microarrayGenelistsV0 void:sparqlEndpoint <http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php> ;
 		    dct:issued "2010-07-30T17:00:00"^^xsd:dateTime .
 
-microarrayGenelists :maintainedBy 
+:microarrayGenelists :maintainedBy 
 		[ foaf:name "Helena Deus" ], [ foaf:name "Jun Zhao" ], [ foaf:name "Kei Cheung" ], [ foaf:name "M. Scott Marshall" ], [ foaf:name "Eric Prud'hommeaux" ], [ foaf:name "Satya Sahoo" ], [ foaf:name "Matthias Samwald" ], [ foaf:name "Michael Miller" ] ;
 		rdf:type void:Dataset ;
 		void:vocabulary <http://purl.org/net/biordfmicroarray/id/> ;
