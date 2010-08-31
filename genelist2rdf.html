@@ -1,0 +1,399 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+	  <!--[if IE]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="StyleSheet" href="http://www.netway-media.com/freedesigns/table/web20.css" type="text/css">
+  <TITLE> Load xml data </TITLE>
+ <script src="ZeroClipboard.js"></script> 
+ </HEAD>
+
+ <BODY>
+	<h2>Convert excel (save as XML spreadsheet) to RDF genelists (Works on IE and Firefox)</h2>
+  <form name="myform" method="post" action="upload.html" enctype="multipart/form-data" >
+		<input type="file" id="file">
+		<a href="#" onClick="javascript:getFileContents(1)">Show Data</a>
+		<a href="#" onClick="javascript:var org=getFileContents();var ttlStr = serializeTurtle(org);showStr(ttlStr)" id='rdfser'>Show RDF/Turtle</a>
+</form>
+
+<script type="text/javascript">
+Array.prototype.unique = function() {
+	var arr = [];
+	var l = this.length;
+	for(var i=0; i<l; i++) {
+	  for(var j=i+1; j<l; j++) {
+		
+		if (this[i] === this[j])
+		  j = ++i;
+	  }
+	  arr.push(this[i]);
+	}
+	return arr;
+};
+
+var dataStarts = 3;
+	
+function getFileContents(disp) {
+	this.disp=disp;
+	this.org = [];
+	this.parseData = function (data, showsheet) {
+		if (window.DOMParser)
+		  {
+		  parser=new DOMParser();
+		  xmlDoc=parser.parseFromString(data,"text/xml");
+		  }
+		else // Internet Explorer
+		  {
+		  xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+		  xmlDoc.async="false";
+		  xmlDoc.loadXML(data); 
+		  }
+		
+		 var worksheets = xmlDoc.getElementsByTagName('Worksheet');
+
+		 if(typeof(showsheet)==='undefined'){
+			for (var i=0; i<worksheets.length; i++) {
+				if(worksheets[i].attributes.length>0){
+					var sheetname = worksheets[i].attributes[0].nodeValue;
+				}
+				
+				org[i] = this.organizeData(xmlDoc, i);
+				org[i].name = sheetname;
+				if(this.disp){
+					$('body').append('<BR><div>Contents of Sheet '+sheetname+'</div>');
+					buildTable(xmlDoc, i);
+				}
+				
+			}
+		 }
+		 else {
+			org[showsheet] = this.organizeData(xmlDoc, showsheet);
+			if(this.disp){
+				buildTable(xmlDoc, showsheet);
+			}
+		 }
+	this.org = org;
+	}
+	
+	
+	this.ieReadFile = function (filename) 
+	{
+		try
+		{
+			var fso  = new ActiveXObject("Scripting.FileSystemObject"); 
+			var fh = fso.OpenTextFile(filename, 1); 
+			var contents = fh.ReadAll(); 
+			fh.Close();
+			return contents;
+		}
+		catch (Exception)
+		{
+			return "Cannot open file :(";
+		}
+	}
+
+	this.organizeData = function (xmlDoc, sheet) {
+		//this makes a table of a certain sheet or sheets
+		var worksheets = xmlDoc.getElementsByTagName('Worksheet');
+		var struct = [];
+		var sh = sheet;
+		var rows = worksheets[sh].getElementsByTagName('Table')[0].getElementsByTagName('Row');
+		//create header row
+		struct['children']=[];
+		levelAttr = [];
+			var headerData = rows[1].getElementsByTagName('Cell');
+			for (var h=0; h<headerData.length; h++) {
+				if(headerData[h].getElementsByTagName('Data').length>0){
+					var val = headerData[h].getElementsByTagName('Data')[0].firstChild.nodeValue;
+					levelAttr.push(val)
+				}
+			}
+			struct['attributes'] = levelAttr;
+			var c=0;
+			for (var r=2; r<rows.length; r++) {
+				//to ignore rows that have no data/nodes	
+				struct['children'][c]={};
+				
+
+				if( (r>=(dataStarts-1)) && (rows[r].getElementsByTagName('Cell').length===0 || rows[r].getElementsByTagName('Cell')[0].getElementsByTagName('Data').length===0 ||
+				typeof(rows[r].getElementsByTagName('Cell')[0].getElementsByTagName('Data')[0])==='undefined' || rows[r].getElementsByTagName('Cell')[0].getElementsByTagName('Data')[0].firstChild.nodeValue==='')){
+						
+				}
+				else {
+					
+					var rowData = rows[r].getElementsByTagName('Cell');
+					
+				
+					//check notes
+					attrInd = 0;
+					for (var rd=0; rd<rowData.length; rd++) {
+						//here we are assuming every cell has its correspondence in the header cols; 
+						//however, excel has this nasty habit of skipping over cells that are empty; instead, it adds an attribute to the cell tag that indicates which index it should be at; if this is different from h, that means we have skipped  (ssindex-1-h) rows
+						if(rowData[rd].attributes.length>0){
+							var ssind = rowData[rd].attributes[0].nodeValue;
+							if(ssind*1-1>rd){
+								var diff = ssind*1-1;
+								
+								for (var d=rd; d<diff; d++) {
+									struct['children'][c][levelAttr[d]] = '';
+								
+								}
+								attrInd = ssind*1-1;
+							}
+						}
+						
+
+						var data = rowData[rd].getElementsByTagName('Data');
+						
+						if(data.length>0 && data[0].firstChild!==null){
+						
+							var dat = data[0].firstChild.nodeValue;
+							var datatype = rowData[rd].getElementsByTagName('Data')[0].attributes[0].firstChild.data;
+						}
+						else {
+							var dat = '';
+						}
+						if(typeof(struct['children'][c][levelAttr[attrInd]])==='undefined')
+								{struct['children'][c][levelAttr[attrInd]] = dat;}
+						else {
+								struct['children'][c][levelAttr[attrInd]] = [struct['children'][c][levelAttr[attrInd]], dat];	
+							}
+					attrInd++;	
+					}
+				}
+				
+			c++;
+			}
+		return struct;
+	}	
+
+	var fileForUpload = document.forms[0].file;
+	var fileName = fileForUpload.value;
+
+	if (fileForUpload.files) {
+		var binaryData = fileForUpload.files.item(0).getAsBinary();
+		this.parseData(binaryData);
+	} else {
+		// try the IE method
+		var binaryData = this.ieReadFile(fileName);
+		this.parseData(binaryData);
+	}
+
+	return this.org;
+}    
+
+function serializeTurtle(org) {
+	
+	this.predType = {
+	':gene' : {
+			'rdfs:label':'lit',
+			':probe_set_id':'lit',
+			':name':'lit',
+			'rdf:ID':'uri',
+			':expressed_in':'uri'
+			},
+	':sample_list' : {
+			'rdfs:label':'lit',
+			':derives_from_region':'uri',
+			':patients_have_disease':'uri',
+			':histology':'uri',	
+			':tissue_state': 'lit',
+			'dct:hasPart':'uri'
+			},
+	':sample' : {
+			'rdfs:label':'lit'		
+			},
+	':microarray_experiment' : {
+			':modelOrganism':'lit',
+			'stat:significance_analysis_software':'uri',	'stat:significance_analysis_software_version':'lit',
+			'stat:significance_analysis_test':'uri',
+			'stat:normalization_software':'uri'
+
+			},
+	':microarray_experiment_set' : {
+			':differentially_expressed_gene':'uri',
+			':has_ouput_value':'uri',
+			':has_input_value':'uri',
+			':has_input_value':'uri',
+			'dct:isPartOf':'uri'
+			},
+	':fold_change' : {
+		'rdf:value':'lit',
+		'stat:p_value':'lit',
+		'stat:uncorrected_p_value':'lit'
+			},
+	':signal' : {
+		'rdf:value':'lit'
+		},
+	':detection' : {
+		'rdf:value':'lit'
+		}
+	}
+	
+	this.prefixStr = 
+	"@prefix : <http://purl.org/net/biordfmicroarray/ns#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix ex: <http://purl.org/net/biordfmicroarray/ns#> .\n@prefix ss: <http://purl.org/net/biordfmicroarray/ns#> . \n@prefix biordf: <http://purl.org/net/biordfmicroarray/id/> .\n@prefix genbank: <http://bio2rdf.org/affymetrix:> .\n@prefix stat: <http://purl.org/net/biordfmicroarray/ns#> . \n@prefix swo: <http://www.ebi.ac.uk/efo/swo/> .\n@prefix ncbi: <http://www.ncbi.nlm.nih.gov/gene/> .\n@prefix doid: <http://purl.org/obo/owl/DOID#> .\n@prefix neurolex: <http://neurolex.org/wiki/Category:> .\n@prefix dct: <http://purl.org/dc/terms/> .\n \n";
+	//start by reading level 1, use the name of the level as the class and create ordered sets using "ex:" for each instance
+	
+	
+	this.completeStr = this.prefixStr;
+	this.str = [];
+	for (var i=0; i<org.length; i++) {
+		var entName = org[i].name;
+		this.str[entName] = '';
+		
+		
+		for (var j=0; j<org[i]['children'].length; j++) {
+			//identifier will be in the firsl col
+
+			var childID = 'ex:'+entName+org[i]['children'][j][':'+entName];
+			this.str[entName] +=childID+'\n';
+			this.str[entName] += '\trdf:type\t:'+entName;
+			if(org[i]['attributes'].unique().length>1){
+				this.str[entName] += ' ;\n';
+			}
+			else {
+				this.str[entName] += ' .\n\n';
+			}
+				var attributes = org[i]['attributes'].unique();
+				for (var k=1; k<attributes.length; k++) {
+					var attr =attributes[k];
+					if(attr!==entName){
+						
+						var dat = org[i]['children'][j][attr];
+						if(typeof(dat)!=='undefined' && dat!==''){
+							//dat can either be a string or an array
+							
+							if(typeof(dat)==='string'){
+								if(typeof(this.predType[':'+entName])==='undefined' || typeof(this.predType[':'+entName][attr])==='undefined' || this.predType[':'+entName][attr]==='lit'){
+										this.str[entName] += '\t'+attr+'\t"'+dat+'"';
+									}
+									else {
+										this.str[entName] += '\t'+attr+'\t'+dat+'';
+										
+									}
+							}
+							else {
+								if(typeof(this.predType[':'+entName])==='undefined' || typeof(this.predType[':'+entName][attr])==='undefined' || this.predType[':'+entName][attr]==='lit'){
+										this.str[entName] += '\t'+attr+'\t"'+dat[0]+'"';
+									}
+									else {
+										this.str[entName] += '\t'+attr+'\t'+dat[0]+'';
+										
+									}	
+								for (var l=1; l<dat.length; l++) {
+									this.str[entName] += ', '+dat[l];
+								}
+							}
+							//there may be a potential problem here - when the last attribute does not exist in the row data, the bliock will end in a  ;
+							if(k>=(org[i]['attributes'].unique().length-1)){
+								this.str[entName] += ' .\n\n';
+							}
+							else {
+								this.str[entName] += ' ;\n';
+							}
+						}
+						
+						
+						
+					}
+					
+				}
+			}
+		this.completeStr += this.str[entName];
+	}
+
+	return this.completeStr;
+}
+	
+	
+	
+function buildTable(xmlDoc, sheet) {
+		//this makes a table of a certain sheet or sheets
+		var worksheets = xmlDoc.getElementsByTagName('Worksheet');
+		
+		//assuming the line 0 is the header
+		if(!document.getElementById('datatable'+sheet)){
+			var table = $(document.createElement('table')).attr('id', 'datatable'+sheet).attr('border', '1').appendTo('body');
+		}
+		else {
+			var table = $('#datatable'+sheet);
+			table.html('');
+		}
+		
+		var thead = document.createElement('thead');table.append(thead);
+		var tbody = document.createElement('tbody');table.append(tbody);
+
+			var sh = sheet;
+		var rows = worksheets[sh].getElementsByTagName('Table')[0].getElementsByTagName('Row');
+		//create header row
+			var tr = $(document.createElement('tr')).appendTo(tbody);
+
+			var headerData = rows[1].getElementsByTagName('Cell');
+			for (var h=0; h<headerData.length; h++) {
+				
+				if(headerData[h].getElementsByTagName('Data').length>0){
+					var val = headerData[h].getElementsByTagName('Data')[0].firstChild.nodeValue;
+				}
+				else {
+					var val = '\t';
+				}
+				$(document.createElement('th')).html(val).appendTo(tr);
+			}
+			
+			for (var r=1; r<rows.length; r++) {
+				//to ignore rows that have no data/noes	
+				if( (r>=(dataStarts-1)) && (rows[r].getElementsByTagName('Cell').length===0 || rows[r].getElementsByTagName('Cell')[0].getElementsByTagName('Data').length===0 ||
+				typeof(rows[r].getElementsByTagName('Cell')[0].getElementsByTagName('Data')[0])==='undefined' || rows[r].getElementsByTagName('Cell')[0].getElementsByTagName('Data')[0].firstChild.nodeValue==='')){
+					console.log('skip row '+rd+' from sheet '+sh); 
+				}
+				else {
+					
+					var tr = $(document.createElement('tr')).appendTo(tbody);
+					var rowData = rows[r].getElementsByTagName('Cell');
+					//check notes
+					for (var rd=0; rd<rowData.length; rd++) {
+						var data = rowData[rd].getElementsByTagName('Data');
+						
+						if(rd==0) ctd = 'th'; else ctd = 'td';
+
+						if(data.length>0){
+							var dat = data[0].firstChild.nodeValue;
+							var datatype = rowData[rd].getElementsByTagName('Data')[0].attributes[0].firstChild.data;
+							$(document.createElement(ctd)).html(dat).appendTo(tr);
+						}
+						else {
+							$(document.createElement(ctd)).html('').appendTo(tr);
+						}
+					}
+				}
+			}
+		
+}
+
+function showStr(str) {
+		
+		//<textarea id="turtle" rows="20" cols="130"></textarea>
+		if(!document.getElementById('p')){
+		
+		var txtAtr = document.createElement('textarea');
+		txtAtr.id = "output_str";
+		document.body.appendChild(txtAtr);
+		$('#output_str').attr('rows', '30').attr('cols', '130');
+		}
+		else {
+			var txtAtr = document.getElementById('output_str');
+		}
+		
+		txtAtr.innerHTML = str;
+		
+		//now for clip
+		// document.getElementById('pre').innerHTML =  str;
+}
+
+
+</script>
+<script type="text/javascript" src="http://jquery.com/src/jquery-latest.pack.js"></script>
+
+ </BODY>
+</HTML>
