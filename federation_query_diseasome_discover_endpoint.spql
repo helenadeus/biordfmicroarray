@@ -1,0 +1,52 @@
+PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
+PREFIX diseasome: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/>
+PREFIX ex: <http://purl.org/net/biordfmicroarray/ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX stat: <http://purl.org/net/biordfmicroarray/ns#>
+PREFIX drugbk: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX biordf: <http://purl.org/net/biordfmicroarray/id/> 
+
+SELECT DISTINCT ?microarray_experiment ?brainRegion ?geneLabel ?foldChangeValue ?pval ?disease ?diseaseName WHERE {
+
+ # Do some biology.
+ {
+  ?microarray_experiment	rdfs:member ?experimentSet .
+  ?experimentSet	:has_input_value	?sampleList .
+  ?sampleList	:derives_from_region	?brainRegion FILTER ( ?brainRegion = biordf:Entorhinal_cortex ) .
+  ?sampleList	:patients_have_disease	?alzheimers FILTER ( ?alzheimers = biordf:Alzheimers_disease ) .
+  ?experimentSet	:differentially_expressed_gene	 ?gene .
+  ?gene	rdfs:label ?geneLabel .
+
+  ?experimentSet	:has_ouput_value ?foldChange .
+  ?foldChange	rdf:value	?foldChangeValue FILTER (xsd:float(?foldChangeValue) > 0).
+  ?foldChange stat:p_value ?pval FILTER (xsd:float(?pval) < 0.001 ) .
+ }
+
+ # Find most recently updated Diseasome server.
+ GRAPH <SOURCES> {
+     ?source rdf:type void:Dataset ;
+     void:sparqlEndpoint ?srvc ;
+     dct:issued ?issued  .
+   
+    OPTIONAL {
+      ?source1 rdf:type void:Dataset ;
+       void:sparqlEndpoint ?srvc2 ;
+       dct:issued ?issued2 . 
+       FILTER (?issued2 > ?issued) 
+      }
+   
+    { ?source dct:subject diseasome:diseases . } UNION { ?source dct:subject diseasome:genes . }
+   { ?source1 dct:subject diseasome:diseases . } UNION { ?source1 dct:subject diseasome:genes . }
+ }
+
+ # Get associated diseases from Diseasome server.
+ SERVICE <http://hcls.deri.org/sparql> {
+   ?diseasomeGene rdfs:label ?geneLabel .
+   ?disease diseasome:associatedGene ?diseasomeGene.
+   ?disease rdfs:label ?diseaseName .
+ }
+}
