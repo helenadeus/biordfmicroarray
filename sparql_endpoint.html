@@ -16,7 +16,7 @@
 
 		<select id="query_select" onClick="fillTheTextArea()" size="7">
 				
-<option  onClick="javascript:document.getElementById('query_submited').disabled=false;document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php';" value="
+<option  onClick="alterAction(0);" value="
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
@@ -40,29 +40,38 @@ SELECT DISTINCT ?microarray_experiment ?title ?pubmedID WHERE
 >
 Q0. What microarray experiments analyze samples taken from the entorhinal cortex region of Alzheimer's patients?
 </option>
-<option  onClick="javascript:document.getElementById('query_submited').disabled=false;document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php';" value="
+<option  onClick="alterAction(1);" value="
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
 PREFIX doid: <http://purl.org/obo/owl/DOID#> 
 PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
-SELECT DISTINCT ?normSoftware ?microarray_experiment WHERE 
+PREFIX magetab: <http://magetab-om.sourceforge.net/>
+
+SELECT DISTINCT ?normSoftware ?normSoftwareLabel ?microarray_experiment ?title WHERE 
 { 
-  ?microarray_experiment	rdf:type	:microarray_experiment .
-  ?experimentSet	dct:isPartOf   ?microarray_experiment .
-  ?experimentSet	:has_input_value	?sampleList .
-  ?sampleList	:derives_from_region	?brainRegion FILTER (?brainRegion = neurolex:Entorhinal_cortex ) .
-  ?sampleList	:patients_have_disease	?alzheimers FILTER (?alzheimers = doid:DOID_10652 ) .
-   
-   OPTIONAL { ?microarray_experiment	stat:normalization_software	?normSoftware . }
+   ?microarray_experiment	rdf:type	:microarray_experiment .
+   ?experimentSet	dct:isPartOf   ?microarray_experiment .
+   ?experimentSet	:has_input_value	?sampleList .
+   ?sampleList	:derives_from_region	?brainRegion FILTER (?brainRegion = neurolex:Entorhinal_cortex ) .
+   ?sampleList	:patients_have_disease	?alzheimers FILTER (?alzheimers = doid:DOID_10652 ) .
+
+   ?microarray_experiment dct:isReferencedBy ?experimentRef .
+   ?experimentRef magetab:title ?title .
+   ?experimentRef :pubmed_link ?pubmedID .
+
+   OPTIONAL { 
+   ?microarray_experiment	stat:normalization_software	?normSoftware . 
+   	?normSoftware rdfs:label ?normSoftwareLabel .
+   }
 
 }
 "
 >
 Q1. What was the data normalization algorithm used in both studies that analyze gene expression in the entorhinal cortex region of AD patients?
 </option>
-<option  onClick="javascript:document.getElementById('query_submited').disabled=false;document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php';" value='PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
+<option  onClick="alterAction(2);" value='PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
 PREFIX doid: <http://purl.org/obo/owl/DOID#> 
 PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
@@ -89,7 +98,7 @@ SELECT DISTINCT ?geneLabel ?foldChangeValue ?pval ?microarray_experiment WHERE
 >
 Q2: What genes are overexpressed in the entorhinal cortex region in the context of Alzheimer's and what is their expression fold change and associated p-value?
 </option>
-<option  onClick="javascript:document.getElementById('query_submited').disabled=false;document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php';" value="
+<option  onClick="alterAction(3);" value="
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
@@ -112,7 +121,7 @@ SELECT DISTINCT ?geneLabel WHERE
 >
 Q3: Are there any genes that are expressed differently in two different brain regions (such as in hippocampus and entorhinal cortex)?
 </option>
-<option onClick="javascript:document.getElementById('query_submited').disabled=false;document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/BioRDF/microarray/diseasome_query_results.htm';" value='
+<option onClick="alterAction(4);" value='
 PREFIX diseasome: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -166,7 +175,7 @@ SELECT DISTINCT  ?diseaseName ?geneLabel ?geneName WHERE {
 		dct:subject	diseasome:genes . 
 		FILTER (?issued2 > ?issued) 
 		}
-		FILTER (BOUND(?srvc2))
+		FILTER (!BOUND(?srvc2))
 	}
 
 	#Get associated diseases from most recently updated Diseasome server.
@@ -180,7 +189,7 @@ SELECT DISTINCT  ?diseaseName ?geneLabel ?geneName WHERE {
 >
 Q4: What other diseases may be associated with the same genes found to affect AD? <I>(Federated query)</I>
 </option>
-<option onClick="javascript:document.getElementById('query_submited').disabled=false;document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/BioRDF/microarray/drugbank_query_results.htm';" value="
+<option onClick="alterAction(5);" value="
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#> 
 PREFIX diseasome: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/>
 PREFIX ex: <http://purl.org/net/biordfmicroarray/ns#>
@@ -189,15 +198,25 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
 PREFIX drugbk: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX dct: <http://purl.org/dc/terms/> 
+
 SELECT ?drugName ?OverExpressedGenLabel ?diseaseTarget WHERE {
-   ex:microarray_experiment1 rdfs:member ?microarray_experiment_set .
-   ?microarray_experiment_set :differentially_expressed_gene	?OverExpressedGene .
+   {
+   ?microarray_experiment_set dct:isPartOf  ?microarray_experiment ;
+							:differentially_expressed_gene	?OverExpressedGene ;
+							:has_ouput_value ?foldChange .
+
+   
    ?OverExpressedGene rdfs:label ?OverExpressedGenLabel .
 
-   ?microarray_experiment_set :has_ouput_value ?foldChange .   
-   ?foldChange rdf:value ?foldChangeVal FILTER (xsd:float(?foldChangeVal) > 2) .
-   ?foldChange stat:p_value ?pval FILTER (xsd:float(?pval) < 0.01 ) .
-   
+  
+   ?foldChange rdf:value ?foldChangeVal ;
+				stat:p_value ?pval  .
+
+   FILTER (xsd:float(?foldChangeVal) > 2) 
+   FILTER (xsd:float(?pval) < 0.01 )
+   }
+ 
   SERVICE <http://hcls.deri.org/sparql> {
         ?targetID drugbk:geneName ?OverExpressedGenLabel .
         ?drug drugbk:target ?targetID  .
@@ -210,26 +229,33 @@ SELECT ?drugName ?OverExpressedGenLabel ?diseaseTarget WHERE {
 >
 Q5: What drugs are known that affect the same overexpressed gene products and what are their target diseases?<I>(Federated query)</I>
 </option>
-<option onClick="javascript:document.getElementById('query_submited').disabled=false;" value="PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+<option onClick="alterAction(6);" value='PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
 PREFIX doid: <http://purl.org/obo/owl/DOID#> 
 SELECT DISTINCT ?geneLabel ?geneName WHERE 
 { 
-   ?microarray_experiment	rdf:type	:microarray_experiment .
-   ?experimentSet	dct:isPartOf   ?microarray_experiment.
-
-   ?experimentSet	:has_input_value	?sampleList .
-   ?sampleList	:derives_from_region	?brainRegion FILTER (?brainRegion = neurolex:Entorhinal_cortex ) .
+   ?microarray_experiment	rdf:type	:microarray_experiment ;
+							dct:isReferencedBy ?reference .
    
-    ?experimentSet :differentially_expressed_gene ?gene .
-    ?gene rdfs:label ?geneLabel .
-    ?gene :name ?geneName .
+   ?reference :experiment_laboratory	?lab .
 
-}"
+   ?experimentSet	dct:isPartOf   ?microarray_experiment ;
+					:has_input_value	?sampleList ;
+					:differentially_expressed_gene ?gene .
+
+   ?sampleList	:derives_from_region	?brainRegion .
+   
+   ?gene rdfs:label ?geneLabel ;
+		 :name ?geneName .
+	
+	FILTER (?brainRegion = neurolex:Entorhinal_cortex ) 
+	FILTER regex(?lab, "Translational Genomics Research Institute", "i")
+
+}'
 >
-Q6: Select all the genes determined to be differentially expressed in Alzheimer's disease (AD)
+Q6: Select all the genes determined to be differentially expressed in Alzheimer's disease (AD). Use only experiments performed at the Translational Genomics Research Institute
 </option>
 
 </select>
@@ -276,7 +302,45 @@ function fillTheTextArea() {
 	
 	return false;
 }
-
+function alterAction(q) {
+	//this is necessary because for federated queries my endpoint does not work... Eric's does
+	switch (q) {
+	case 0:
+		document.getElementById('query_submited').disabled=false;
+		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
+	break;
+	case 1:
+		document.getElementById('query_submited').disabled=false;
+		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
+	break;
+	case 2:
+		document.getElementById('query_submited').disabled=false;
+		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
+	break;
+	case 3:
+		document.getElementById('query_submited').disabled=false;
+		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
+	break;
+	case 4:
+		document.getElementById('query_submited').disabled=false;
+		document.getElementById('sparql-form').action='result_fedquery_q4.html';
+	break;
+	case 5:
+		document.getElementById('query_submited').disabled=false;
+		document.getElementById('sparql-form').action='result_fedquery_q5.html';
+	break;
+	case 6:
+		document.getElementById('query_submited').disabled=false;
+		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
+	break;
+	case 7:
+	    document.getElementById('query_submited').disabled=false;
+		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
+	break;
+	
+	}
+	
+}
 </script>
 
 </body>
