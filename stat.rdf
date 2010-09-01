@@ -155,21 +155,3 @@
         <rdfs:domain rdf:resource="&ns;genelist"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Classes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-    <!-- http://purl.org/net/biordfmicroarray/stat#p_value -->
-
-    <owl:Class rdf:about="&stat;p_value"/>
-    
-    
