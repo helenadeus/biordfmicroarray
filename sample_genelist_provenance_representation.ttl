@@ -1,0 +1,350 @@
+@prefix : <http://purl.org/net/biordfmicroarray/ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ex: <http://purl.org/net/biordfmicroarray/ns#> .
+@prefix ss: <http://purl.org/net/biordfmicroarray/ns#> . 
+@prefix biordf: <http://purl.org/net/biordfmicroarray/id/> .
+@prefix genbank: <http://bio2rdf.org/affymetrix:> .
+@prefix stat: <http://purl.org/net/biordfmicroarray/ns#> . 
+@prefix swo: <http://www.ebi.ac.uk/efo/swo/> .
+@prefix ncbi: <http://www.ncbi.nlm.nih.gov/gene> .
+@prefix doid: <http://purl.org/obo/owl/DOID#> .
+@prefix neurolex: <http://neurolex.org/wiki/Category:> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix magetab: <http://magetab-om.sourceforge.net/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix scovo: <http://purl.org/NET/scovo#> .
+@prefix dis: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/> .
+
+##### gene list 1 (http://public.tgen.org/tgen.org/supplementarydata/neurogenomics/supplementarydata/dunckley_etal/U133_plus_2.0_AD.xls)
+
+##institutional level provenance
+ex:reference1	rdf:type	:reference ;
+		:principal_investigator "Dietrich A. Stephan"; 
+		:pubmed_link	<http://www.ncbi.nlm.nih.gov/pubmed/16242812> ;
+		magetab:authorlist	"Dunckley T, Beach TG, Ramsey KE, Grover A, Mastroeni D, Walker DG, LaFleur BJ, Coon KD, Brown KM, Caselli R, Kukull W, Higdon R, McKeel D, Morris JC, Hulette C, Schmechel D, Reiman EM, Rogers J, Stephan DA" ;
+		magetab:title	"Gene expression correlates of neuroﬁbrillary tangles in Alzheimer’s disease" ;
+		:raw_data_url	<http://www.tgen.org/research/index.cfm?pageid=502> ;
+		:experiment_laboratory	"Neurogenomics Division, Translational Genomics Research Institute, Phoenix, AZ 85004, USA" .
+
+
+ex:gene1
+	:probe_set_id	"225871_at" ;
+	:name	"six transmembrane epithelial antigen of prostate 2" ;
+	rdfs:label	"STEAP2" ;
+	rdf:ID		ncbi:_261729 ;
+	rdf:type	:gene ;
+	:expressed_in	ex:sample_list1, ex:sample_list2 .
+
+ex:gene2
+	:probe_set_id	"225621_at" ;
+	:name	"GDP-Man:Man(1)GlcNAc(2)-PP-dolichol mannosyltransferase" ;
+	rdfs:label	"ALG2" ;
+	rdf:ID		ncbi:_85365 ;
+	rdf:type	:gene ;
+	:expressed_in	ex:sample_list1, ex:sample_list2 .
+
+ex:gene3
+	:probe_set_id	"213745_at" ;
+	:name	"KIAA0534 protein" ;
+	rdfs:label	"KIAA0534" ;
+	rdf:ID		ncbi:_26033 ;
+	rdf:type	:gene ;
+	:expressed_in	ex:sample_list1, ex:sample_list2 .
+
+ex:sample1
+	rdfs:label		"AD control 1" ;
+	rdf:type		:sample .
+
+ex:signal1 
+	rdf:type	:signal ;
+	rdf:value	"343.9" .
+
+ex:detection1 
+	rdf:type	:detection ;
+	rdf:value	"A" .
+
+ex:experiment1
+	rdf:type		:experiment ;
+	:has_input_value	ex:sample1 ;
+	:has_input_value	ex:gene1 ;
+	:has_output_value	ex:signal1 ;
+	:has_output_value	ex:detection1 ;
+	dct:isPartOf		ex:microarray_experiment1  .
+
+ex:sample_list1 
+		:derives_from_region neurolex:Entorhinal_cortex ;
+		:patients_have_disease	doid:DOID_10652 ;
+		:histology		neurolex:Neurofibrillary_Tangle ;
+		:tissue_state		"post mortem" ;
+		rdf:type		:sample_list ;
+		dct:hasPart		ex:sample2 ;
+		dct:hasPart		ex:sample4 ;
+		dct:hasPart		ex:sample6 ;
+		dct:hasPart		ex:sample8 ;
+		dct:hasPart		ex:sample10 ;
+		dct:hasPart		ex:sample12 ;
+		dct:hasPart		ex:sample14 ;
+		dct:hasPart		ex:sample16 ;
+		dct:hasPart		ex:sample18 .
+
+ex:sample_list2 
+		:derives_from_region neurolex:Entorhinal_cortex ;
+		:histology		biordf:normalCells ;
+		rdf:type		:sample_list ;
+		dct:hasPart		ex:sample1 ;
+		dct:hasPart		ex:sample3 ;
+		dct:hasPart		ex:sample5 ;
+		dct:hasPart		ex:sample7 ;
+		dct:hasPart		ex:sample9 ;
+		dct:hasPart		ex:sample11 ;
+		dct:hasPart		ex:sample13 ;
+		dct:hasPart		ex:sample15 ;
+		dct:hasPart		ex:sample17 .
+
+
+
+##Added 20100607 to represent fold change and p-value associated with a microarray experiment
+ex:microarray_experiment1
+	:modelOrganism				"Homo sapiens" ;
+	stat:significance_analysis_software	swo:SWO_0000197 ;
+	rdf:type				:microarray_experiment ;
+	stat:significance_analysis_software_version	"6.1" ;
+	stat:significance_analysis_test		<http://biostat.mc.vanderbilt.edu/twiki/bin/view/Main/BonnieLaFleur>	;
+	stat:normalization_software	swo:SWO_0000272 .
+
+ex:microarray_experiment_set1
+		rdf:type		:microarray_experiment_set ;
+		:differentially_expressed_gene	ex:gene1 ;
+		:has_input_value	ex:sample_list1 ;
+		:has_input_value	ex:sample_list2 ;
+		:has_ouput_value	ex:fold_change1 ;
+		dct:isPartOf		ex:microarray_experiment1  .
+
+ex:fold_change1
+		rdf:value "0.6183" ;
+		stat:p_value "0.000016" ;
+		rdf:type	:fold_change .
+
+######## gene list 2 (http://public.tgen.org/tgen.org/supplementarydata/neurogenomics/supplementarydata/brain_regions/PCA1_0_98_correlation.xls)
+##genelist2 goes from gene 263 through gene 364 - see separate file with all the genes for genelist2
+
+ex:gene263
+	:probe_set_id	"1556743_at" ;
+	:genbank_id	"AI732587" ;
+	rdf:type	:gene ;
+	:expressed_in	ex:sample_list3 ;
+	:expressed_in	ex:sample_list4 ;
+	:expressed_in	ex:sample_list5 ;
+	:expressed_in	ex:sample_list6 ;
+	:expressed_in	ex:sample_list7 ;
+	:expressed_in	ex:sample_list8 .
+
+ex:gene264
+	:probe_set_id	"1557098_s_at" ;
+	:genbank_id	"AW593432" ;
+	:name	"CDNA clone IMAGE:4812795" ;
+	rdf:type	:gene ;
+	:expressed_in	ex:sample_list3 ;
+	:expressed_in	ex:sample_list4 ;
+	:expressed_in	ex:sample_list5 ;
+	:expressed_in	ex:sample_list6 ;
+	:expressed_in	ex:sample_list7 ;
+	:expressed_in	ex:sample_list8 .
+
+ex:gene265
+	:probe_set_id	"1557118_a_at" ;
+	:genbank_id	"AW236954" ;
+	:name	"CDNA clone IMAGE:4812643" ;
+	rdf:type	:gene ;
+	:expressed_in	ex:sample_list3 ;
+	:expressed_in	ex:sample_list4 ;
+	:expressed_in	ex:sample_list5 ;
+	:expressed_in	ex:sample_list6 ;
+	:expressed_in	ex:sample_list7 ;
+	:expressed_in	ex:sample_list8 .
+
+
+:sample_list3
+	:derives_from_region	neurolex:Entorhinal_cortex ;
+	:histology		neurolex:Stellate_cells ;
+	:derives_from_region	biordf:layerII ;
+	rdf:type		:sample_list .
+
+:sample_list4
+	:derives_from_region	neurolex:Hippocampus ;
+	:histology		neurolex:Pyramidal_cell ;
+	:derives_from_region	neurolex:CA1 .
+	rdf:type		:sample_list .
+
+:sample_list5
+	:derives_from_region	neurolex:Middle_temporal_gyrus ;
+	:histology		neurolex:Pyramidal_cell ;
+	:derives_from_region	biordf:layerIII ;
+	rdf:type		:sample_list .
+
+:sample_list6
+	:derives_from_region	neurolex:Posterior_cingulate_cortex ;
+	:histology		neurolex:Pyramidal_cell ;
+	:derives_from_region	biordf:layerIII ;
+	rdf:type		:sample_list .
+
+:sample_list7
+	:derives_from_region	neurolex:Superior_frontal_gyrus ;
+	:histology		neurolex:Pyramidal_cell ;
+	:derives_from_region	biordf:layerIII ;
+	rdf:type		:sample_list .
+
+:sample_list8
+	:derives_from_region	biordf:Primary_visual_cortex ;
+	:histology		neurolex:Pyramidal_cell ;
+	:derives_from_region	biordf:layerIII ;
+	rdf:type		:sample_list .
+
+##normalization by  Affymetrix GCOS software
+ex:microarray_experiment2
+		:modelOrganism				"Homo sapiens" ;
+		stat:significance_analysis_software	swo:SWO_0000197 ;
+		stat:significance_analysis_software_version	"7.2" ;
+		stat:normalization_software		swo:SWO_0000025 ;		
+		rdf:type				:microarray_experiment .
+
+ex:microarray_experiment_set263
+		:differentially_expressed_gene	ex:gene263 ;
+		:has_input_value	ex:sample_list3 ;
+		:has_ouput_value	ex:fold_change263 ;
+		:has_ouput_value	ex:avg_signal1 ;
+		dct:isPartOf		ex:microarray_experiment2 .
+
+ex:avg_signal1 rdf:type	:signal ;
+	rdf:value "75.34285714" .
+
+ex:fold_change263
+	rdf:type	:fold_change ;
+	rdf:value	"-0.451245083" ;
+	stat:p_value 	"0.388656567" .
+
+##genelist 3
+ex:gene365
+	:probe_set_id	"1569891_at" ;
+	rdfs:label	"ATP5A1" ;
+	:genbank_id	"BC035703" ;
+	rdf:type	:gene ;
+	:expressed_in	ex:sample_list9 ;
+	:expressed_in	ex:sample_list10 ;
+	:expressed_in	ex:sample_list11 ;
+	:expressed_in	ex:sample_list12 ;
+	:expressed_in	ex:sample_list13 ;
+	:expressed_in	ex:sample_list14 .
+
+ex:gene366
+	:probe_set_id	"213738_s_at" ;
+	rdfs:label	"ATP5A1" ;
+	:genbank_id	"AI587323" ;
+	rdf:type	:gene ;
+	:expressed_in	ex:sample_list9 ;
+	:expressed_in	ex:sample_list10 ;
+	:expressed_in	ex:sample_list11 ;
+	:expressed_in	ex:sample_list12 ;
+	:expressed_in	ex:sample_list13 ;
+	:expressed_in	ex:sample_list14 .
+
+ex:gene367
+	:probe_set_id	"201322_at" ;
+	rdfs:label	"ATP5B" ;
+	:genbank_id	"NM_001686" ;
+	rdf:type	:gene ;
+	:expressed_in	ex:sample_list9 ;
+	:expressed_in	ex:sample_list10 ;
+	:expressed_in	ex:sample_list11 ;
+	:expressed_in	ex:sample_list12 ;
+	:expressed_in	ex:sample_list13 ;
+	:expressed_in	ex:sample_list14 .
+
+ex:sample_list9
+	:derives_from_region	neurolex:Posterior_cingulate_cortex ;
+	:patients_have_disease	doid:DOID_10652 ;
+	:tissue_state		"late onset Alzheimer's disease" .
+
+ex:sample_list10
+	:derives_from_region	neurolex:Middle_temporal_gyrus ;
+	:patients_have_disease	doid:DOID_10652 ;
+	:tissue_state		"late onset Alzheimer's disease" .
+
+ex:sample_list11
+	:derives_from_region	neurolex:Hippocampus ;
+	:patients_have_disease	doid:DOID_10652 ;
+	:tissue_state		"late onset Alzheimer's disease" .
+
+ex:sample_list12
+	:derives_from_region	neurolex:Entorhinal_cortex ;
+	:patients_have_disease	doid:DOID_10652 ;
+	:tissue_state		"late onset Alzheimer's disease" .
+
+ex:sample_list13
+	:derives_from_region	biordf:Primary_visual_cortex ;
+	:patients_have_disease	doid:DOID_10652 ;
+	:tissue_state		"late onset Alzheimer's disease" .
+
+ex:sample_list14
+	:derives_from_region	neurolex:Superior_frontal_gyrus ;
+	:patients_have_disease	doid:DOID_10652 ;
+	:tissue_state		"late onset Alzheimer's disease" .
+
+ex:microarray_experiment3
+		:modelOrganism				"Homo sapiens" ;
+		stat:significance_analysis_software	swo:SWO_0000197 ;
+		stat:significance_analysis_software_version	"7.3" ;
+		stat:normalization_software		swo:SWO_0000025 ;
+		dct:hasPart	ex:microarray_experiment_set875  ;
+		rdf:type				:microarray_experiment .
+
+ex:microarray_experiment_set3 
+		:has_input_value	ex:sample_list9 ;
+		:differentially_expressed_gene	ex:gene366 ;
+		:has_ouput_value	ex:fold_change366 ;
+		dct:isPartOf		ex:microarray_experiment2 .
+
+ex:fold_change366
+		rdf:value "-4.35782" ;
+		stat:p_value "2.62880*10^-7" ;
+		stat:corrected_p_value "2.6313*10^-7" .
+
+##Dataset description provenance level
+ex:microarray_experiment1
+	biordf:studyType	biordf:testVScontrol ;
+	void:statItem [ 
+	       rdf:value 262;
+	       scovo:dimension void:numberOfResources ;
+	       scovo:dimension :gene ;
+	    ] ;
+	void:statItem [ 
+	       rdf:value 18;
+	       scovo:dimension void:numberOfResources ;
+	       scovo:dimension :sample ;
+	    ] ;
+	void:statItem [ 
+	       rdf:value 2;
+	       scovo:dimension void:numberOfResources ;
+	       scovo:dimension :sample_list ;
+	    ] .
+
+:microarrayGenelists :maintainedBy 
+		[ foaf:name "Helena Deus" ], [ foaf:name "Jun Zhao" ], [ foaf:name "Kei Cheung" ], [ foaf:name "M. Scott Marshall" ], [ foaf:name "Eric Prud'hommeaux" ], [ foaf:name "Satya Sahoo" ], [ foaf:name "Matthias Samwald" ], [ foaf:name "Michael Miller" ] ;
+		rdf:type void:Dataset ;
+		void:vocabulary <http://purl.org/net/biordfmicroarray/id/> ;
+		void:vocabulary <http://magetab-om.sourceforge.net/> ;
+		void:vocabulary <http://purl.org/obo/owl/DOID#> ;
+		void:vocabulary <http://neurolex.org/wiki/Category:>;
+		void:vocabulary <http://www.ebi.ac.uk/efo/swo/> ;
+		dct:title "Provenance of Microarray Experiments - for a Better Understanding of Experiment Results" ;
+		foaf:homepage <http://ibl.mdanderson.org/~mhdeus/BioRDF/microarray/sparql_endpoint.html> ;
+		void:exampleResource <http://purl.org/net/biordfmicroarray/ns#microarray_experiment1> ;
+		void:exampleResource <http://purl.org/net/biordfmicroarray/ns#gene267> ;
+		void:exampleResource <http://purl.org/net/biordfmicroarray/ns#fold_change267> ;
+		void:dataDump <http://ibl.mdanderson.org/~mhdeus/BioRDF/microarray/genelists_sample.ttl> ;
+		void:sparqlEndpoint <http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint2.php> ;
+		dct:license <http://creativecommons.org/licenses/by/3.0/> ;
+		dct:subject :gene, :reference, :microarray_experiment, :microarray_experiment_set, :experiment, :sample, :sample_list ;
+		dct:issued "2010-08-31T11:00:00"^^xsd:dateTime ;
+		void:subset :microarray_experiment1, :microarray_experiment2,:microarray_experiment3 .

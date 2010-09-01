@@ -1,32 +1,28 @@
-PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX diseasome: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/>
-PREFIX ex: <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX stat: <http://purl.org/net/biordfmicroarray/ns#>
-PREFIX drugbk: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
+PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX biordf: <http://purl.org/net/biordfmicroarray/id/> 
+PREFIX biordf: <http://purl.org/net/biordfmicroarray/ns#> 
 PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
 PREFIX doid: <http://purl.org/obo/owl/DOID#> 
-PREFIX magetab: <http://magetab-om.sourceforge.net/>
 
 SELECT DISTINCT  ?diseaseName ?geneLabel ?geneName WHERE {
 
 	#Retrieve a list of overexpressed genes in the entorhinal cortex of AD patients
 	{
 		?experimentSet	dct:isPartOf	?microarray_experiment	;
-				:has_input_value	?sampleList ;
-				:differentially_expressed_gene	 ?gene ;
-				:has_ouput_value ?foldChange .
+				biordf:has_input_value	?sampleList ;
+				biordf:differentially_expressed_gene	 ?gene ;
+				biordf:has_ouput_value ?foldChange .
 
-		?sampleList	:derives_from_region	?brainRegion ;
-			:patients_have_disease	?alzheimers .
+		?sampleList	biordf:derives_from_region	?brainRegion ;
+			biordf:patients_have_disease	?alzheimers .
 
 		?gene	rdfs:label ?geneLabel ;
-		:name	   ?geneName .
+		biordf:name	   ?geneName .
 
 		?foldChange	rdf:value	?foldChangeValue ;
 			stat:p_value ?pval .
