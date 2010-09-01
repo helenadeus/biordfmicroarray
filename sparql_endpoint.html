@@ -82,6 +82,8 @@ SELECT DISTINCT ?geneLabel ?foldChangeValue ?pval ?microarray_experiment WHERE
   ?foldChange	rdf:type	:fold_change .
   ?foldChange	rdf:value	?foldChangeValue .
   ?foldChange	stat:p_value	?pval  .
+  FILTER (?foldChangeValue > 0)
+  FILTER (?pval < 0.001)
 }
 '
 >
