@@ -11,12 +11,12 @@
 </TR>
 <TR>
 		<TD style="color: #330066 font-size: 18px"><BR><I>Example Queries (Hint - click on the query to see it in the textarea):</I><BR>
-		<form id="sparql-form" action="http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?" enctype="application/x-www-form-urlencoded" method="post" Target="sparql_result">
+		<form id="sparql-form" enctype="application/x-www-form-urlencoded" method="post" Target="sparql_result">
 		
 
-		<select id="query_select" onClick="fillTheTextArea()" size="7">
+		<select id="query_select" onClick="fillTheTextArea();alterActionIE(this);" size="7">
 				
-<option  onClick="alterAction(0);" value="
+<option id="Q0" onClick="alterAction(0);" value="
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
@@ -245,17 +245,18 @@ SELECT DISTINCT ?geneLabel ?geneName WHERE
 					:has_input_value	?sampleList ;
 					:differentially_expressed_gene ?gene .
 
-   ?sampleList	:derives_from_region	?brainRegion .
+   ?sampleList	:derives_from_region	?brainRegion FILTER (?brainRegion = neurolex:Entorhinal_cortex ) .
+    ?sampleList	:patients_have_disease	?alzheimers FILTER (?alzheimers = doid:DOID_10652 ) .
    
    ?gene rdfs:label ?geneLabel ;
 		 :name ?geneName .
 	
-	FILTER (?brainRegion = neurolex:Entorhinal_cortex ) 
+	
 	FILTER regex(?lab, "Translational Genomics Research Institute", "i")
 
 }'
 >
-Q6: Select all the genes determined to be differentially expressed in Alzheimer's disease (AD). Use only experiments performed at the Translational Genomics Research Institute
+Q6: Select all the genes determined to be differentially expressed in the neurolex:Entorhinal_cortex. Use only experiments performed at the Translational Genomics Research Institute
 </option>
 
 </select>
@@ -302,12 +303,25 @@ function fillTheTextArea() {
 	
 	return false;
 }
+function alterActionIE(obj) {
+	var isIE = (navigator.appName=="Microsoft Internet Explorer");
+	if(isIE){
+		var ch = obj.children;
+		var sel = false;
+		for (var i=0; i<ch.length; i++) {
+			if(ch[i].selected){
+				var sel = i;
+			}
+		}
+		alterAction(sel);
+	}
+}
 function alterAction(q) {
 	//this is necessary because for federated queries my endpoint does not work... Eric's does
 	switch (q) {
 	case 0:
 		document.getElementById('query_submited').disabled=false;
-		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
+		document.getElementById('sparql-form').setAttribute("action",'http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?');
 	break;
 	case 1:
 		document.getElementById('query_submited').disabled=false;
@@ -323,11 +337,11 @@ function alterAction(q) {
 	break;
 	case 4:
 		document.getElementById('query_submited').disabled=false;
-		document.getElementById('sparql-form').action='result_fedquery_q4.html';
+		document.getElementById('sparql-form').setAttribute("action", 'result_fedquery_q4.html');
 	break;
 	case 5:
 		document.getElementById('query_submited').disabled=false;
-		document.getElementById('sparql-form').action='result_fedquery_q5.html';
+		document.getElementById('sparql-form').setAttribute("action", 'result_fedquery_q5.html');
 	break;
 	case 6:
 		document.getElementById('query_submited').disabled=false;
@@ -337,7 +351,7 @@ function alterAction(q) {
 	    document.getElementById('query_submited').disabled=false;
 		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
 	break;
-	
+	alert(document.getElementById('sparql-form').action);
 	}
 	
 }
