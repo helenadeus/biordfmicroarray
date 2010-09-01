@@ -155,3 +155,4 @@
         <rdfs:domain rdf:resource="&ns;genelist"/>
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
+</rdf:RDF>
