@@ -16,7 +16,7 @@
 
 		<select id="query_select" onClick="fillTheTextArea();alterActionIE(this);" size="7">
 				
-<option id="Q0" onClick="alterAction(0);" value="
+<option id="Q0" value="
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
@@ -40,8 +40,7 @@ SELECT DISTINCT ?microarray_experiment ?title ?pubmedID WHERE
 >
 Q0. What microarray experiments analyze samples taken from the entorhinal cortex region of Alzheimer's patients?
 </option>
-<option  onClick="alterAction(1);" value="
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+<option  value="PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
@@ -71,7 +70,7 @@ SELECT DISTINCT ?normSoftware ?normSoftwareLabel ?microarray_experiment ?title W
 >
 Q1. What was the data normalization algorithm used in both studies that analyze gene expression in the entorhinal cortex region of AD patients?
 </option>
-<option  onClick="alterAction(2);" value='PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
+<option value='PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
 PREFIX doid: <http://purl.org/obo/owl/DOID#> 
 PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
@@ -98,7 +97,7 @@ SELECT DISTINCT ?geneLabel ?foldChangeValue ?pval ?microarray_experiment WHERE
 >
 Q2: What genes are overexpressed in the entorhinal cortex region in the context of Alzheimer's and what is their expression fold change and associated p-value?
 </option>
-<option  onClick="alterAction(3);" value="
+<option value="
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
@@ -121,8 +120,7 @@ SELECT DISTINCT ?geneLabel WHERE
 >
 Q3: Are there any genes that are expressed differently in two different brain regions (such as in hippocampus and entorhinal cortex)?
 </option>
-<option onClick="alterAction(4);" value='
-PREFIX diseasome: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/>
+<option value='PREFIX diseasome: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
@@ -189,7 +187,7 @@ SELECT DISTINCT  ?diseaseName ?geneLabel ?geneName WHERE {
 >
 Q4: What other diseases may be associated with the same genes found to affect AD? <I>(Federated query)</I>
 </option>
-<option onClick="alterAction(5);" value="
+<option value="
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#> 
 PREFIX diseasome: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/>
 PREFIX ex: <http://purl.org/net/biordfmicroarray/ns#>
@@ -229,7 +227,7 @@ SELECT ?drugName ?OverExpressedGenLabel ?diseaseTarget WHERE {
 >
 Q5: What drugs are known that affect the same overexpressed gene products and what are their target diseases?<I>(Federated query)</I>
 </option>
-<option onClick="alterAction(6);" value='PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+<option value='PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
@@ -304,8 +302,7 @@ function fillTheTextArea() {
 	return false;
 }
 function alterActionIE(obj) {
-	var isIE = (navigator.appName=="Microsoft Internet Explorer");
-	if(isIE){
+
 		var ch = obj.children;
 		var sel = false;
 		for (var i=0; i<ch.length; i++) {
@@ -314,45 +311,65 @@ function alterActionIE(obj) {
 			}
 		}
 		alterAction(sel);
-	}
+	
 }
+
 function alterAction(q) {
 	//this is necessary because for federated queries my endpoint does not work... Eric's does
+	var formButton = document.getElementById('query_submited');
 	switch (q) {
 	case 0:
 		document.getElementById('query_submited').disabled=false;
+		document.getElementById('query_submited').setAttribute('type', 'submit');
 		document.getElementById('sparql-form').setAttribute("action",'http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?');
 	break;
 	case 1:
 		document.getElementById('query_submited').disabled=false;
+		document.getElementById('query_submited').setAttribute('type', 'submit');
 		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
 	break;
 	case 2:
 		document.getElementById('query_submited').disabled=false;
+		document.getElementById('query_submited').setAttribute('type', 'submit');
 		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
 	break;
 	case 3:
 		document.getElementById('query_submited').disabled=false;
+		document.getElementById('query_submited').setAttribute('type', 'submit');
 		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
 	break;
 	case 4:
 		document.getElementById('query_submited').disabled=false;
-		document.getElementById('query_submited').setAttribute('method', 'GET');
-		document.getElementById('sparql-form').setAttribute("action", 'result_fedquery_q4.html');
+		document.getElementById('query_submited').setAttribute('type', 'button');
+		
+		if( formButton.attachEvent ){
+		   formButton.attachEvent('onclick', 'window.open("result_fedquery_q4.html","sparql_result")');
+		} else {
+		   formButton.setAttribute('onclick', 'window.open("result_fedquery_q4.html","sparql_result")'); 
+		}
+		
 	break;
 	case 5:
 		document.getElementById('query_submited').disabled=false;
-		document.getElementById('query_submited').setAttribute('method', 'GET');
-		document.getElementById('sparql-form').setAttribute("action", 'result_fedquery_q5.html');
+		document.getElementById('query_submited').setAttribute('type', 'button');
+		if( formButton.attachEvent ){
+		   formButton.attachEvent('onclick', 'window.open("result_fedquery_q5.html", ,"sparql_result")');
+		} else {
+		   formButton.setAttribute('onclick', 'window.open("result_fedquery_q5.html","sparql_result")'); 
+		}
+		//document.getElementById('sparql-form').setAttribute("action", 'result_fedquery_q5.html');
 	break;
 	case 6:
 		document.getElementById('query_submited').disabled=false;
+		document.getElementById('query_submited').setAttribute('type', 'submit');
 		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
 	break;
 	case 7:
 	    document.getElementById('query_submited').disabled=false;
+		document.getElementById('query_submited').setAttribute('type', 'submit');
 		document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?';
 	break;
+	
 	alert(document.getElementById('sparql-form').action);
 	}
 	
