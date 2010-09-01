@@ -321,7 +321,6 @@ function alterAction(q) {
 	switch (q) {
 	case 0:
 		document.getElementById('query_submited').disabled=false;
-		document.getElementById('query_submited').setAttribute('method', 'GET');
 		document.getElementById('sparql-form').setAttribute("action",'http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?');
 	break;
 	case 1:
@@ -338,10 +337,12 @@ function alterAction(q) {
 	break;
 	case 4:
 		document.getElementById('query_submited').disabled=false;
+		document.getElementById('query_submited').setAttribute('method', 'GET');
 		document.getElementById('sparql-form').setAttribute("action", 'result_fedquery_q4.html');
 	break;
 	case 5:
 		document.getElementById('query_submited').disabled=false;
+		document.getElementById('query_submited').setAttribute('method', 'GET');
 		document.getElementById('sparql-form').setAttribute("action", 'result_fedquery_q5.html');
 	break;
 	case 6:
