@@ -1,0 +1,601 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>Lena</Author>
+  <LastAuthor>Lena</LastAuthor>
+  <LastPrinted>2010-08-29T19:29:08Z</LastPrinted>
+  <Created>2010-08-27T16:34:15Z</Created>
+  <LastSaved>2010-08-30T14:37:05Z</LastSaved>
+  <Company>ITQB</Company>
+  <Version>12.00</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>8055</WindowHeight>
+  <WindowWidth>19305</WindowWidth>
+  <WindowTopX>5535</WindowTopX>
+  <WindowTopY>2835</WindowTopY>
+  <TabRatio>831</TabRatio>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s26" ss:Name="Good">
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#008000"/>
+   <Interior ss:Color="#C6EFCE" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s62" ss:Name="Hyperlink">
+   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#0000FF"
+    ss:Underline="Single"/>
+  </Style>
+  <Style ss:ID="s64" ss:Parent="s26">
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s65" ss:Parent="s26">
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="s66">
+   <Font ss:FontName="Arial" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s69" ss:Parent="s62">
+   <Alignment ss:Vertical="Bottom"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s70" ss:Parent="s26">
+   <Borders>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="genelist">
+  <Table ss:ExpandedColumnCount="8" ss:ExpandedRowCount="3" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="15">
+   <Column ss:Index="5" ss:AutoFitWidth="0" ss:Width="134.25"/>
+   <Row>
+    <Cell ss:StyleID="s70"/>
+    <Cell ss:StyleID="s70"/>
+    <Cell ss:StyleID="s70"/>
+    <Cell ss:StyleID="s70"/>
+    <Cell ss:StyleID="s70"/>
+    <Cell ss:StyleID="s70"/>
+    <Cell ss:StyleID="s70"/>
+    <Cell ss:StyleID="s70"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">:genelist</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">:principal_investigator</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">:pubmed_link</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">magetab:authorlist</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">magetab:title</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">:raw_data_url</Data></Cell>
+    <Cell ss:StyleID="s70"><Data ss:Type="String">:experiment_laboratory</Data></Cell>
+    <Cell ss:StyleID="s70"/>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Dietrich A. Stephan</Data></Cell>
+    <Cell><Data ss:Type="String" x:Ticked="1">&lt;http://www.ncbi.nlm.nih.gov/pubmed/16242812&gt;</Data></Cell>
+    <Cell><Data ss:Type="String">Dunckley T, Beach TG, Ramsey KE, Grover A, Mastroeni D, Walker DG, LaFleur BJ, Coon KD, Brown KM, Caselli R, Kukull W, Higdon R, McKeel D, Morris JC, Hulette C, Schmechel D, Reiman EM, Rogers J, Stephan DA</Data></Cell>
+    <Cell><Data ss:Type="String">Gene expression correlates of neuroﬁbrillary tangles in Alzheimer’s disease</Data></Cell>
+    <Cell><Data ss:Type="String" x:Ticked="1">&lt;http://www.tgen.org/research/index.cfm?pageid=502&gt;</Data></Cell>
+    <Cell><Data ss:Type="String">Neurogenomics Division, Translational Genomics Research Institute, Phoenix, AZ 85004, USA</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>2</ActiveRow>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="microarray_experiment">
+  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="3" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="15">
+   <Column ss:Index="2" ss:AutoFitWidth="0" ss:Width="90.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="170.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="206.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="234"/>
+   <Column ss:AutoFitWidth="0" ss:Width="110.25"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Please leave this header intact when filling the dataset. If you do not have data on any particular type, please leave that column blank</Data></Cell>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:microarray_experiment</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:modelOrganism</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">stat:significance_analysis_software</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">stat:significance_analysis_software_version</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">stat:significance_analysis_test</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">stat:normalization_software</Data></Cell>
+    <Cell ss:StyleID="s64"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">Homo sapiens</Data></Cell>
+    <Cell><Data ss:Type="String">swo:SWO_0000197</Data></Cell>
+    <Cell><Data ss:Type="Number">6.1</Data></Cell>
+    <Cell ss:StyleID="s69" ss:HRef="http://biostat.mc.vanderbilt.edu/twiki/bin/view/Main/BonnieLaFleur"><Data
+      ss:Type="String" x:Ticked="1">&lt;http://biostat.mc.vanderbilt.edu/twiki/bin/view/Main/BonnieLaFleur&gt;</Data></Cell>
+    <Cell><Data ss:Type="String">swo:SWO_0000272</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="microarray_experiment_set">
+  <Table ss:ExpandedColumnCount="6" ss:ExpandedRowCount="7" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="15">
+   <Column ss:AutoFitWidth="0" ss:Width="123"/>
+   <Column ss:Index="3" ss:AutoFitWidth="0" ss:Width="86.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="82.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="87"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"><Data ss:Type="String">One microarray experiment set compares 2 or more sample_lists; for every gene and sample list, a new microarray experiment set should be added</Data></Cell>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:microarray_experiment_set</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:differentially_expressed_gene</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:has_ouput_value</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:has_input_value</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:has_input_value</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">dct:isPartOf</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">:gene1</Data></Cell>
+    <Cell><Data ss:Type="String">:fold_change1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list2</Data></Cell>
+    <Cell><Data ss:Type="String">:microarray_experiment1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">:gene2</Data></Cell>
+    <Cell><Data ss:Type="String">:fold_change2</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list2</Data></Cell>
+    <Cell><Data ss:Type="String">:microarray_experiment1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">:gene3</Data></Cell>
+    <Cell><Data ss:Type="String">:fold_change3</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list2</Data></Cell>
+    <Cell><Data ss:Type="String">:microarray_experiment1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">4</Data></Cell>
+    <Cell><Data ss:Type="String">:gene4</Data></Cell>
+    <Cell><Data ss:Type="String">:fold_change4</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list2</Data></Cell>
+    <Cell><Data ss:Type="String">:microarray_experiment1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">5</Data></Cell>
+    <Cell><Data ss:Type="String">:gene5</Data></Cell>
+    <Cell><Data ss:Type="String">:fold_change5</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list2</Data></Cell>
+    <Cell><Data ss:Type="String">:microarray_experiment1</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>1</ActiveRow>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="sample_list">
+  <Table ss:ExpandedColumnCount="14" ss:ExpandedRowCount="4" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="15">
+   <Column ss:AutoFitWidth="0" ss:Width="65.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="165"/>
+   <Column ss:AutoFitWidth="0" ss:Width="151.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="78.75" ss:Span="1"/>
+   <Column ss:Index="14" ss:AutoFitWidth="0" ss:Width="58.5"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Numeric ID of the sample</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Brain region</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Disease</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Cell type</Data></Cell>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Samples that are included in this list</Data></Cell>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:sample_list</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:derives_from_region</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:patients_have_disease</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:histology</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:tissue_state</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">dct:hasPart</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">dct:hasPart</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">dct:hasPart</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">dct:hasPart</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">dct:hasPart</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">dct:hasPart</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">dct:hasPart</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">dct:hasPart</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">dct:hasPart</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">neurolex:Entorhinal_cortex</Data></Cell>
+    <Cell><Data ss:Type="String">doid:DOID_10652</Data></Cell>
+    <Cell><Data ss:Type="String">neurolex:Neurofibrillary_Tangle</Data></Cell>
+    <Cell><Data ss:Type="String">post mortem</Data></Cell>
+    <Cell><Data ss:Type="String">:sample2</Data></Cell>
+    <Cell><Data ss:Type="String">:sample4</Data></Cell>
+    <Cell><Data ss:Type="String">:sample6</Data></Cell>
+    <Cell><Data ss:Type="String">:sample8</Data></Cell>
+    <Cell><Data ss:Type="String">:sample10</Data></Cell>
+    <Cell><Data ss:Type="String">:sample12</Data></Cell>
+    <Cell><Data ss:Type="String">:sample14</Data></Cell>
+    <Cell><Data ss:Type="String">:sample16</Data></Cell>
+    <Cell><Data ss:Type="String">:sample18</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">neurolex:Entorhinal_cortex</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">neurolex:Neurofibrillary_Tangle</Data></Cell>
+    <Cell><Data ss:Type="String">post mortem</Data></Cell>
+    <Cell><Data ss:Type="String">:sample1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample3</Data></Cell>
+    <Cell><Data ss:Type="String">:sample5</Data></Cell>
+    <Cell><Data ss:Type="String">:sample7</Data></Cell>
+    <Cell><Data ss:Type="String">:sample9</Data></Cell>
+    <Cell><Data ss:Type="String">:sample11</Data></Cell>
+    <Cell><Data ss:Type="String">:sample13</Data></Cell>
+    <Cell><Data ss:Type="String">:sample15</Data></Cell>
+    <Cell><Data ss:Type="String">:sample17</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <LeftColumnVisible>1</LeftColumnVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>4</ActiveRow>
+     <ActiveCol>3</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="sample">
+  <Table ss:ExpandedColumnCount="2" ss:ExpandedRowCount="20" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="15">
+   <Column ss:Index="2" ss:AutoFitWidth="0" ss:Width="184.5"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Information about the Samples</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:sample</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">rdfs:label</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">AD control 1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">AD tangle 1</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">AD control 2</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">4</Data></Cell>
+    <Cell><Data ss:Type="String">AD tangle 2</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">5</Data></Cell>
+    <Cell><Data ss:Type="String">AD control 3</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">6</Data></Cell>
+    <Cell><Data ss:Type="String">AD tangle 3</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">7</Data></Cell>
+    <Cell><Data ss:Type="String">AD control 4</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">8</Data></Cell>
+    <Cell><Data ss:Type="String">AD tangle 4</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">9</Data></Cell>
+    <Cell><Data ss:Type="String">AD control 5</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">10</Data></Cell>
+    <Cell><Data ss:Type="String">AD tangle 5</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">11</Data></Cell>
+    <Cell><Data ss:Type="String">AD control 6</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">12</Data></Cell>
+    <Cell><Data ss:Type="String">AD tangle 6</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">13</Data></Cell>
+    <Cell><Data ss:Type="String">AD control 7</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">14</Data></Cell>
+    <Cell><Data ss:Type="String">AD tangle 7</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">15</Data></Cell>
+    <Cell><Data ss:Type="String">AD control 8</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">16</Data></Cell>
+    <Cell><Data ss:Type="String">AD tangle 8</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">17</Data></Cell>
+    <Cell><Data ss:Type="String">AD control 9</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">18</Data></Cell>
+    <Cell><Data ss:Type="String">AD tangle 9</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>5</ActiveRow>
+     <ActiveCol>1</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="gene">
+  <Table ss:ExpandedColumnCount="9" ss:ExpandedRowCount="7" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="15">
+   <Column ss:Index="2" ss:AutoFitWidth="0" ss:Width="85.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="85.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="95.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="81"/>
+   <Column ss:AutoFitWidth="0" ss:Width="68.25"/>
+   <Column ss:AutoFitWidth="0" ss:Width="78.75"/>
+   <Column ss:Width="63"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Gene symbol</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Probe Set</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Gene Name</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">NCBI Entrez gene ID</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">List the sample list where these genes are expressed</Data></Cell>
+    <Cell ss:StyleID="s65"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:gene</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">rdfs:label</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:probe_set_id</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:name</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">rdf:ID</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">:expressed_in</Data></Cell>
+    <Cell ss:StyleID="s65"><Data ss:Type="String">:expressed_in</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="String">STEAP2</Data></Cell>
+    <Cell><Data ss:Type="String">225871_at</Data></Cell>
+    <Cell><Data ss:Type="String">six transmembrane epithelial antigen of prostate 2</Data></Cell>
+    <Cell><Data ss:Type="String">ncbi:_261729</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list2</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="String">ALG2</Data></Cell>
+    <Cell><Data ss:Type="String">225621_at</Data></Cell>
+    <Cell><Data ss:Type="String">GDP-Man:Man(1)GlcNAc(2)-PP-dolichol mannosyltransferase</Data></Cell>
+    <Cell><Data ss:Type="String">ncbi:_85365</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list2</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="String">KIAA0534</Data></Cell>
+    <Cell><Data ss:Type="String">213745_at</Data></Cell>
+    <Cell><Data ss:Type="String">KIAA0534 protein</Data></Cell>
+    <Cell><Data ss:Type="String">ncbi:_26033</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list2</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">4</Data></Cell>
+    <Cell><Data ss:Type="String">COL5A2</Data></Cell>
+    <Cell><Data ss:Type="String">221730_at</Data></Cell>
+    <Cell><Data ss:Type="String">collagen, type V, alpha 2</Data></Cell>
+    <Cell ss:StyleID="s66"/>
+    <Cell><Data ss:Type="String">:sample_list1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list2</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">5</Data></Cell>
+    <Cell><Data ss:Type="String">CYB561</Data></Cell>
+    <Cell><Data ss:Type="String">209163_at</Data></Cell>
+    <Cell><Data ss:Type="String">cytochrome b-561</Data></Cell>
+    <Cell ss:StyleID="s66"><Data ss:Type="String">ncbi:_1534</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list1</Data></Cell>
+    <Cell><Data ss:Type="String">:sample_list2</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Print>
+    <ValidPrinterInfo/>
+    <HorizontalResolution>300</HorizontalResolution>
+    <VerticalResolution>300</VerticalResolution>
+   </Print>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>22</ActiveRow>
+     <ActiveCol>4</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="fold_change">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="7" x:FullColumns="1"
+   x:FullRows="1" ss:DefaultRowHeight="15">
+   <Column ss:Index="2" ss:AutoFitWidth="0" ss:Width="90"/>
+   <Column ss:AutoFitWidth="0" ss:Width="112.5"/>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"/>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">Sample list 1 vs Sample List 2</Data></Cell>
+    <Cell ss:StyleID="s64"/>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell ss:StyleID="s64"><Data ss:Type="String">:fold_change</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">rdf:value</Data></Cell>
+    <Cell ss:StyleID="s64"><Data ss:Type="String">stat:p_value</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">1</Data></Cell>
+    <Cell><Data ss:Type="Number">0.61834088053296654</Data></Cell>
+    <Cell><Data ss:Type="Number">1.6096800000000001E-5</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">2</Data></Cell>
+    <Cell><Data ss:Type="Number">0.65502453507071867</Data></Cell>
+    <Cell><Data ss:Type="Number">5.0699499999999998E-5</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">3</Data></Cell>
+    <Cell><Data ss:Type="Number">0.70671855146124529</Data></Cell>
+    <Cell><Data ss:Type="Number">6.4459800000000002E-5</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">4</Data></Cell>
+    <Cell><Data ss:Type="Number">0.21552638557411827</Data></Cell>
+    <Cell><Data ss:Type="Number">1.10362E-4</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0">
+    <Cell><Data ss:Type="Number">5</Data></Cell>
+    <Cell><Data ss:Type="Number">0.66275149537792277</Data></Cell>
+    <Cell><Data ss:Type="Number">1.15308E-4</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <PageSetup>
+    <Header x:Margin="0.3"/>
+    <Footer x:Margin="0.3"/>
+    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+   </PageSetup>
+   <Unsynced/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>2</ActiveRow>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

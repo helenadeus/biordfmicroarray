@@ -1,0 +1,66 @@
+PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
+PREFIX diseasome: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/>
+PREFIX ex: <http://purl.org/net/biordfmicroarray/ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX stat: <http://purl.org/net/biordfmicroarray/ns#>
+PREFIX drugbk: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX void: <http://rdfs.org/ns/void#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX biordf: <http://purl.org/net/biordfmicroarray/id/> 
+PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
+PREFIX doid: <http://purl.org/obo/owl/DOID#> 
+PREFIX magetab: <http://magetab-om.sourceforge.net/>
+
+SELECT DISTINCT  ?diseaseName ?geneLabel ?geneName WHERE {
+
+	#Retrieve a list of overexpressed genes in the entorhinal cortex of AD patients
+	{
+		?experimentSet	dct:isPartOf	?microarray_experiment	;
+				:has_input_value	?sampleList ;
+				:differentially_expressed_gene	 ?gene ;
+				:has_ouput_value ?foldChange .
+
+		?sampleList	:derives_from_region	?brainRegion ;
+			:patients_have_disease	?alzheimers .
+
+		?gene	rdfs:label ?geneLabel ;
+		:name	   ?geneName .
+
+		?foldChange	rdf:value	?foldChangeValue ;
+			stat:p_value ?pval .
+
+		#Apply filters to constrain the amount of results
+		FILTER (xsd:float(?foldChangeValue) > 0)
+		FILTER (xsd:float(?pval) < 0.001 )
+		FILTER (?brainRegion = neurolex:Entorhinal_cortex ) 
+		FILTER (?alzheimers = doid:DOID_10652 )
+	}
+
+	#Find most recently updated SPARQL endpoint that contains information about genes and diseases.
+	GRAPH <SOURCES> {
+		?source	rdf:type	void:Dataset ;
+		void:sparqlEndpoint	?srvc ;
+		dct:issued		?issued  ;
+		dct:subject		diseasome:diseases ;
+		dct:subject		diseasome:genes .
+
+		OPTIONAL {
+		?source1	rdf:type	void:Dataset ;
+		void:sparqlEndpoint	?srvc2 ;
+		dct:issued	?issued2 ;
+		dct:subject	diseasome:diseases ; 
+		dct:subject	diseasome:genes . 
+		FILTER (?issued2 > ?issued) 
+		}
+		FILTER (BOUND(?srvc2))
+	}
+
+	#Get associated diseases from most recently updated Diseasome server.
+	SERVICE ?srvc {
+		?diseasomeGene rdfs:label ?geneLabel .
+		?disease diseasome:associatedGene ?diseasomeGene.
+		?disease rdfs:label ?diseaseName .
+	}
+}
