@@ -22,7 +22,7 @@ SELECT DISTINCT  ?diseaseName ?geneLabel ?geneName WHERE {
 			biordf:patients_have_disease	?alzheimers .
 
 		?gene	rdfs:label ?geneLabel ;
-		biordf:name	   ?geneName .
+			biordf:name	   ?geneName .
 
 		?foldChange	rdf:value	?foldChangeValue ;
 			stat:p_value ?pval .
@@ -35,7 +35,8 @@ SELECT DISTINCT  ?diseaseName ?geneLabel ?geneName WHERE {
 	}
 
 	#Find most recently updated SPARQL endpoint that contains information about genes and diseases.
-	GRAPH <SOURCES> {
+	
+	{
 		?source	rdf:type	void:Dataset ;
 		void:sparqlEndpoint	?srvc ;
 		dct:issued		?issued  ;

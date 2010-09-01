@@ -46,7 +46,7 @@ PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
 PREFIX doid: <http://purl.org/obo/owl/DOID#> 
-PREFIX stat: <http://purl.org/net/biordfmicroarray/ns#>
+PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
 SELECT DISTINCT ?normSoftware ?microarray_experiment WHERE 
 { 
   ?microarray_experiment	rdf:type	:microarray_experiment .
@@ -65,7 +65,7 @@ Q1. What was the data normalization algorithm used in both studies that analyze 
 <option  onClick="javascript:document.getElementById('query_submited').disabled=false;document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php';" value='PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
 PREFIX doid: <http://purl.org/obo/owl/DOID#> 
-PREFIX stat: <http://purl.org/net/biordfmicroarray/ns#>
+PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX dct: <http://purl.org/dc/terms/> 
 SELECT DISTINCT ?geneLabel ?foldChangeValue ?pval ?microarray_experiment WHERE 
@@ -95,7 +95,7 @@ PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
 PREFIX doid: <http://purl.org/obo/owl/DOID#> 
-PREFIX stat: <http://purl.org/net/biordfmicroarray/ns#>
+PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
 SELECT DISTINCT ?geneLabel WHERE 
 { 
   
@@ -113,56 +113,69 @@ SELECT DISTINCT ?geneLabel WHERE
 Q3: Are there any genes that are expressed differently in two different brain regions (such as in hippocampus and entorhinal cortex)?
 </option>
 <option onClick="javascript:document.getElementById('query_submited').disabled=false;document.getElementById('sparql-form').action='http://ibl.mdanderson.org/~mhdeus/BioRDF/microarray/diseasome_query_results.htm';" value='
-PREFIX : <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX diseasome: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/>
-PREFIX ex: <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX stat: <http://purl.org/net/biordfmicroarray/ns#>
-PREFIX drugbk: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
+PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX void: <http://rdfs.org/ns/void#>
 PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX biordf: <http://purl.org/net/biordfmicroarray/id/> 
+PREFIX biordf: <http://purl.org/net/biordfmicroarray/ns#> 
+PREFIX neurolex: <http://neurolex.org/wiki/Category:> 
+PREFIX doid: <http://purl.org/obo/owl/DOID#> 
 
-SELECT DISTINCT ?microarray_experiment ?brainRegion ?geneLabel ?foldChangeValue ?pval ?disease ?diseaseName WHERE {
+SELECT DISTINCT  ?diseaseName ?geneLabel ?geneName WHERE {
 
- #Retrieve a list of overexpressed genes in the entorhinal cortex of AD patients
- {
-   ?microarray_experiment	rdfs:member ?experimentSet .
-  ?experimentSet	:has_input_value	?sampleList .
-  ?sampleList	:derives_from_region	?brainRegion FILTER ( ?brainRegion = biordf:Entorhinal_cortex ) .
-  ?sampleList	:patients_have_disease	?alzheimers FILTER ( ?alzheimers = biordf:Alzheimers_disease ) .
-  ?experimentSet	:differentially_expressed_gene	 ?gene .
-  ?gene	rdfs:label ?geneLabel .
+	#Retrieve a list of overexpressed genes in the entorhinal cortex of AD patients
+	{
+		?experimentSet	dct:isPartOf	?microarray_experiment	;
+				biordf:has_input_value	?sampleList ;
+				biordf:differentially_expressed_gene	 ?gene ;
+				biordf:has_ouput_value ?foldChange .
 
-  ?experimentSet	:has_ouput_value ?foldChange .
-  ?foldChange	rdf:value	?foldChangeValue FILTER (xsd:float(?foldChangeValue) > 0).
-  ?foldChange stat:p_value ?pval FILTER (xsd:float(?pval) < 0.001 ) .
- }
+		?sampleList	biordf:derives_from_region	?brainRegion ;
+			biordf:patients_have_disease	?alzheimers .
 
- #Find most recently updated Diseasome server.
- GRAPH <SOURCES> {
-   [ rdf:type void:Dataset ;
-     void:sparqlEndpoint ?srvc ;
-     void:vocabulary <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/> ;
-     dct:issued ?issued ] .
-   OPTIONAL {
-     [ rdf:type void:Dataset ;
-       void:sparqlEndpoint ?srvc2 ;
-       void:vocabulary <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/> ;
-       dct:issued ?issued2 ] . FILTER (?issued2 > ?issued)
-   } FILTER (!BOUND(?srvc2))
- }
+		?gene	rdfs:label ?geneLabel ;
+			biordf:name	   ?geneName .
 
- # Get associated diseases from most recently updated Diseasome server.
- SERVICE ?srvc {
-   ?diseasomeGene rdfs:label ?geneLabel .
-   ?disease diseasome:associatedGene ?diseasomeGene.
-   ?disease rdfs:label ?diseaseName .
- }
+		?foldChange	rdf:value	?foldChangeValue ;
+			stat:p_value ?pval .
+
+		#Apply filters to constrain the amount of results
+		FILTER (xsd:float(?foldChangeValue) > 0)
+		FILTER (xsd:float(?pval) < 0.001 )
+		FILTER (?brainRegion = neurolex:Entorhinal_cortex ) 
+		FILTER (?alzheimers = doid:DOID_10652 )
+	}
+
+	#Find most recently updated SPARQL endpoint that contains information about genes and diseases.
+	
+	{
+		?source	rdf:type	void:Dataset ;
+		void:sparqlEndpoint	?srvc ;
+		dct:issued		?issued  ;
+		dct:subject		diseasome:diseases ;
+		dct:subject		diseasome:genes .
+
+		OPTIONAL {
+		?source1	rdf:type	void:Dataset ;
+		void:sparqlEndpoint	?srvc2 ;
+		dct:issued	?issued2 ;
+		dct:subject	diseasome:diseases ; 
+		dct:subject	diseasome:genes . 
+		FILTER (?issued2 > ?issued) 
+		}
+		FILTER (BOUND(?srvc2))
+	}
+
+	#Get associated diseases from most recently updated Diseasome server.
+	SERVICE ?srvc {
+		?diseasomeGene rdfs:label ?geneLabel .
+		?disease diseasome:associatedGene ?diseasomeGene.
+		?disease rdfs:label ?diseaseName .
+	}
 }
-
 '
 >
 Q4: What other diseases may be associated with the same genes found to affect AD? <I>(Federated query)</I>
@@ -173,10 +186,10 @@ PREFIX diseasome: <http://www4.wiwiss.fu-berlin.de/diseasome/resource/diseasome/
 PREFIX ex: <http://purl.org/net/biordfmicroarray/ns#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX stat: <http://purl.org/net/biordfmicroarray/ns#>
+PREFIX stat: <http://purl.org/net/biordfmicroarray/stat#>
 PREFIX drugbk: <http://www4.wiwiss.fu-berlin.de/drugbank/resource/drugbank/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
-SELECT ?OverExpressedGenLabel ?foldChangeVal ?pval ?targetID ?diseaseTarget WHERE {
+SELECT ?drugName ?OverExpressedGenLabel ?diseaseTarget WHERE {
    ex:microarray_experiment1 rdfs:member ?microarray_experiment_set .
    ?microarray_experiment_set :differentially_expressed_gene	?OverExpressedGene .
    ?OverExpressedGene rdfs:label ?OverExpressedGenLabel .
@@ -195,7 +208,7 @@ SELECT ?OverExpressedGenLabel ?foldChangeVal ?pval ?targetID ?diseaseTarget WHER
   }
 }"
 >
-Q5: What pathways are associated with these genes and do we know any drugs impact on those pathways? <I>(Federated query)</I>
+Q5: What drugs are known that affect the same overexpressed gene products and what are their target diseases?<I>(Federated query)</I>
 </option>
 <option onClick="javascript:document.getElementById('query_submited').disabled=false;" value="PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
 PREFIX dct: <http://purl.org/dc/terms/> 
