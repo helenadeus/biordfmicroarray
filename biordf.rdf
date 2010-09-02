@@ -7,15 +7,12 @@
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
     <!ENTITY ns "http://purl.org/net/biordfmicroarray/ns#" >
-    <!ENTITY ns2 "http://purl.org/net/biordfmicroarray/ns#:" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
-    <!ENTITY nsstat "http://purl.org/net/biordfmicroarray/nsstat#" >
-    <!ENTITY nsdiod "http://purl.org/net/biordfmicroarray/nsdiod#" >
-    <!ENTITY stat "http://purl.org/net/biordfmicroarray/ns#stat:" >
-    <!ENTITY nsbiordf "http://purl.org/net/biordfmicroarray/nsbiordf#" >
-    <!ENTITY nsmagetab "http://purl.org/net/biordfmicroarray/nsmagetab#" >
-    <!ENTITY nsneurolex "http://purl.org/net/biordfmicroarray/nsneurolex#" >
-    <!ENTITY magetab "http://purl.org/net/biordfmicroarray/ns#magetab:" >
+    <!ENTITY doid "http://purl.org/obo/owl/DOID#" >
+    <!ENTITY stat "http://purl.org/net/biordfmicroarray/stat#" >
+    <!ENTITY biordf "http://purl.org/net/biordfmicroarray/ns#" >
+    <!ENTITY magetab "http://magetab-om.sourceforge.net/" >
+    <!ENTITY neurolex "http://neurolex.org/wiki/Category:" >
 ]>
 
 
@@ -23,20 +20,17 @@
      xml:base="http://purl.org/net/biordfmicroarray.owl"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:ns="http://purl.org/net/biordfmicroarray/ns#"
-     xmlns:nsstat="http://purl.org/net/biordfmicroarray/nsstat#"
-     xmlns:stat="&ns;stat:"
-     xmlns:ns2="&ns;:"
+     xmlns:stat="http://purl.org/net/biordfmicroarray/stat#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:nsneurolex="http://purl.org/net/biordfmicroarray/nsneurolex#"
-     xmlns:magetab="&ns;magetab:"
-     xmlns:nsdiod="http://purl.org/net/biordfmicroarray/nsdiod#"
-     xmlns:nsmagetab="http://purl.org/net/biordfmicroarray/nsmagetab#"
+     xmlns:neurolex="http://neurolex.org/wiki/Category:"
+     xmlns:magetab="http://magetab-om.sourceforge.net/"
+     xmlns:doid="http://purl.org/obo/owl/DOID#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:nsbiordf="http://purl.org/net/biordfmicroarray/nsbiordf#">
+     xmlns:biordf="http://purl.org/net/biordfmicroarray/ns#">
     <owl:Ontology rdf:about="http://purl.org/net/biordfmicroarray.owl">
-        <dc:contributor rdf:datatype="&xsd;string">Helena F. Deus, Satya S. Sahoo, Kei Cheung, Jun Zhao</dc:contributor>
+        <dc:contributor rdf:datatype="&xsd;string">Helena F. Deus, Jun Zhao, Michael Miller, Eric Prud'hommeaux, Satya S. Sahoo, Kei Cheung</dc:contributor>
     </owl:Ontology>
     
 
@@ -147,15 +141,6 @@
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/ns#has_p_value -->
-
-    <owl:ObjectProperty rdf:about="&ns;has_p_value">
-        <rdfs:domain rdf:resource="&ns;fold_change"/>
-        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-    </owl:ObjectProperty>
-    
-
-
     <!-- http://purl.org/net/biordfmicroarray/ns#histology -->
 
     <owl:ObjectProperty rdf:about="&ns;histology">
@@ -217,25 +202,25 @@
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/ns#stat:normalization_software -->
+    <!-- http://purl.org/net/biordfmicroarray/stat#normalization_software -->
 
-    <owl:ObjectProperty rdf:about="&ns;stat:normalization_software">
+    <owl:ObjectProperty rdf:about="&stat;normalization_software">
         <rdfs:domain rdf:resource="&ns;microarray_experiment"/>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsbiordf#microarrayPlatform -->
+    <!-- http://purl.org/net/biordfmicroarray/ns#microarrayPlatform -->
 
-    <owl:ObjectProperty rdf:about="&nsbiordf;microarrayPlatform">
+    <owl:ObjectProperty rdf:about="&ns;microarrayPlatform">
         <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsbiordf#studyType -->
+    <!-- http://purl.org/net/biordfmicroarray/ns#studyType -->
 
-    <owl:ObjectProperty rdf:about="&nsbiordf;studyType">
+    <owl:ObjectProperty rdf:about="&ns;studyType">
         <rdfs:domain rdf:resource="&ns;genelist"/>
         <rdfs:range rdf:resource="&ns;studyType"/>
         <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
@@ -243,18 +228,18 @@
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsstat#normalization_software -->
+    <!-- http://purl.org/net/biordfmicroarray/stat#normalization_software -->
 
-    <owl:ObjectProperty rdf:about="&nsstat;normalization_software">
+    <owl:ObjectProperty rdf:about="&stat;normalization_software">
         <rdfs:range rdf:resource="&ns;software"/>
         <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsstat#significance_analysis_software -->
+    <!-- http://purl.org/net/biordfmicroarray/stat#significance_analysis_software -->
 
-    <owl:ObjectProperty rdf:about="&nsstat;significance_analysis_software">
+    <owl:ObjectProperty rdf:about="&stat;significance_analysis_software">
         <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
     </owl:ObjectProperty>
     
@@ -299,7 +284,7 @@
 
     <!-- http://purl.org/net/biordfmicroarray/ns#magetab:authorlist -->
 
-    <owl:DatatypeProperty rdf:about="&ns;magetab:authorlist">
+    <owl:DatatypeProperty rdf:about="&magetab;authorlist">
         <rdfs:range rdf:resource="&xsd;string"/>
     </owl:DatatypeProperty>
     
@@ -362,53 +347,53 @@
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/ns#value -->
+    <!-- http://purl.org/net/biordfmicroarray/stat#p_value -->
 
-    <owl:DatatypeProperty rdf:about="&ns;value">
+    <owl:DatatypeProperty rdf:about="&stat;p_value">
         <rdfs:domain rdf:resource="&ns;fold_change"/>
         <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsmagetab#authorlist -->
+    <!-- magetab#authorlist -->
 
-    <owl:DatatypeProperty rdf:about="&nsmagetab;authorlist">
+    <owl:DatatypeProperty rdf:about="&magetab;authorlist">
         <rdfs:domain rdf:resource="&ns;genelist"/>
         <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsmagetab#title -->
+    <!-- magetab#title -->
 
-    <owl:DatatypeProperty rdf:about="&nsmagetab;title">
+    <owl:DatatypeProperty rdf:about="&magetab;title">
         <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsstat#corrected_p_value -->
+    <!-- http://purl.org/net/biordfmicroarray/stat#corrected_p_value -->
 
-    <owl:DatatypeProperty rdf:about="&nsstat;corrected_p_value">
+    <owl:DatatypeProperty rdf:about="&stat;corrected_p_value">
         <rdfs:domain rdf:resource="&ns;fold_change"/>
         <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsstat#p_value -->
+    <!-- http://purl.org/net/biordfmicroarray/stat#p_value -->
 
-    <owl:DatatypeProperty rdf:about="&nsstat;p_value">
+    <owl:DatatypeProperty rdf:about="&stat;p_value">
         <rdfs:domain rdf:resource="&ns;fold_change"/>
         <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsstat#significance_analysis_software_version -->
+    <!-- http://purl.org/net/biordfmicroarray/stat#significance_analysis_software_version -->
 
-    <owl:DatatypeProperty rdf:about="&nsstat;significance_analysis_software_version">
+    <owl:DatatypeProperty rdf:about="&stat;significance_analysis_software_version">
         <rdfs:domain rdf:resource="&ns;microarray_experiment"/>
         <rdfs:range rdf:resource="&xsd;string"/>
         <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
@@ -416,9 +401,9 @@
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsstat#significance_analysis_test -->
+    <!-- http://purl.org/net/biordfmicroarray/stat#significance_analysis_test -->
 
-    <owl:DatatypeProperty rdf:about="&nsstat;significance_analysis_test">
+    <owl:DatatypeProperty rdf:about="&stat;significance_analysis_test">
         <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
     </owl:DatatypeProperty>
     
@@ -494,8 +479,8 @@
     <owl:Class rdf:about="&ns;fold_change">
         <rdfs:subClassOf rdf:resource="&owl;Thing"/>
         <ns:value rdf:datatype="&xsd;float"></ns:value>
-        <ns:value rdf:resource="&ns;has_corrected_p_value"/>
-        <ns:value rdf:resource="&ns;has_p_value"/>
+        <ns:value rdf:resource="&stat;corrected_p_value"/>
+        <ns:value rdf:resource="&stat;p_value"/>
     </owl:Class>
     
 
@@ -537,9 +522,9 @@
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/ns#p_value -->
+    <!-- http://purl.org/net/biordfmicroarray/stat#p_value -->
 
-    <owl:Class rdf:about="&ns;p_value"/>
+    <owl:Class rdf:about="&stat;p_value"/>
     
 
 
@@ -611,105 +596,105 @@
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsbiordf#Primary_visual_cortex -->
+    <!-- http://purl.org/net/biordfmicroarray/ns#Primary_visual_cortex -->
 
-    <owl:NamedIndividual rdf:about="&nsbiordf;Primary_visual_cortex">
+    <owl:NamedIndividual rdf:about="&ns;Primary_visual_cortex">
         <rdf:type rdf:resource="&ns;brain_region"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsbiordf#affymetrix_U133_plus2_0 -->
+    <!-- http://purl.org/net/biordfmicroarray/ns#affymetrix_U133_plus2_0 -->
 
-    <owl:NamedIndividual rdf:about="&nsbiordf;affymetrix_U133_plus2_0">
+    <owl:NamedIndividual rdf:about="&ns;affymetrix_U133_plus2_0">
         <rdf:type rdf:resource="&ns;microarrayPlatform"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsbiordf#diseaseTissueComparison -->
+    <!-- http://purl.org/net/biordfmicroarray/ns#diseaseTissueComparison -->
 
-    <owl:NamedIndividual rdf:about="&nsbiordf;diseaseTissueComparison">
+    <owl:NamedIndividual rdf:about="&ns;diseaseTissueComparison">
         <rdf:type rdf:resource="&ns;studyType"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsbiordf#normalCells -->
+    <!-- http://purl.org/net/biordfmicroarray/ns#normalCells -->
 
-    <owl:NamedIndividual rdf:about="&nsbiordf;normalCells">
+    <owl:NamedIndividual rdf:about="&ns;normalCells">
         <rdf:type rdf:resource="&ns;cellHistology"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsbiordf#normalTissueComparison -->
+    <!-- http://purl.org/net/biordfmicroarray/ns#normalTissueComparison -->
 
-    <owl:NamedIndividual rdf:about="&nsbiordf;normalTissueComparison">
+    <owl:NamedIndividual rdf:about="&ns;normalTissueComparison">
         <rdf:type rdf:resource="&ns;studyType"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsbiordf#testVScontrol -->
+    <!-- http://purl.org/net/biordfmicroarray/ns#testVScontrol -->
 
-    <owl:NamedIndividual rdf:about="&nsbiordf;testVScontrol">
+    <owl:NamedIndividual rdf:about="&ns;testVScontrol">
         <rdf:type rdf:resource="&ns;studyType"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsdiod#Alzheimer_disease -->
+    <!-- doid#Alzheimer_disease -->
 
-    <owl:NamedIndividual rdf:about="&nsdiod;Alzheimer_disease">
+    <owl:NamedIndividual rdf:about="&doid;Alzheimer_disease">
         <rdf:type rdf:resource="&ns;disease"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsneurolex#Entorhinal_cortex -->
+    <!-- neurolex#Entorhinal_cortex -->
 
-    <owl:NamedIndividual rdf:about="&nsneurolex;Entorhinal_cortex">
+    <owl:NamedIndividual rdf:about="&neurolex;Entorhinal_cortex">
         <rdf:type rdf:resource="&ns;brain_region"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsneurolex#Hippocampus -->
+    <!-- neurolex#Hippocampus -->
 
-    <owl:NamedIndividual rdf:about="&nsneurolex;Hippocampus">
+    <owl:NamedIndividual rdf:about="&neurolex;Hippocampus">
         <rdf:type rdf:resource="&ns;brain_region"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsneurolex#Middle_temporal_gyrus -->
+    <!-- neurolex#Middle_temporal_gyrus -->
 
-    <owl:NamedIndividual rdf:about="&nsneurolex;Middle_temporal_gyrus">
+    <owl:NamedIndividual rdf:about="&neurolex;Middle_temporal_gyrus">
         <rdf:type rdf:resource="&ns;brain_region"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsneurolex#Neurofibrillary_Tangle -->
+    <!-- neurolex#Neurofibrillary_Tangle -->
 
-    <owl:NamedIndividual rdf:about="&nsneurolex;Neurofibrillary_Tangle">
+    <owl:NamedIndividual rdf:about="&neurolex;Neurofibrillary_Tangle">
         <rdf:type rdf:resource="&ns;cellHistology"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsneurolex#Posterior_cingulate_cortex -->
+    <!-- neurolex#Posterior_cingulate_cortex -->
 
-    <owl:NamedIndividual rdf:about="&nsneurolex;Posterior_cingulate_cortex">
+    <owl:NamedIndividual rdf:about="&neurolex;Posterior_cingulate_cortex">
         <rdf:type rdf:resource="&ns;brain_region"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://purl.org/net/biordfmicroarray/nsneurolex#Superior_frontal_gyrus -->
+    <!-- neurolex#Superior_frontal_gyrus -->
 
-    <owl:NamedIndividual rdf:about="&nsneurolex;Superior_frontal_gyrus">
+    <owl:NamedIndividual rdf:about="&neurolex;Superior_frontal_gyrus">
         <rdf:type rdf:resource="&ns;brain_region"/>
     </owl:NamedIndividual>
 </rdf:RDF>
