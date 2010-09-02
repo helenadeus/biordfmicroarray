@@ -1,20 +1,44 @@
 <html>
 <body>
 <head>
+<script type="text/javascript" src="jquery.js"></script>
 </head>
 <TABLE style="position: absolute; left: 150px; width: 30">
 <TR>
 	<th style="background-color: #333399; border-width: 2px; color: #FFFFFF; font-size: 20px">Provenance of Microarray Experiments - for a Better Understanding of Experiment Results </th>
 </TR>
+
 <TR>
 	<TD><BR><div style="border: 2px navy solid;""><I>Introduction</I><BR> Microarray experiments provide insights into the molecular mechanisms that lead to disease. The typical outcome of a microarray experiment is a list of differentially expressed genes that are potential targets for gene therapy and can lead to further studies of disease affected pathways. In these case study, we have collected 3 such genelists associated with Alzheimer's disease and represented the various levels of provenance RDF.</div> </TD>
 </TR>
 <TR>
-		<TD style="color: #330066 font-size: 18px"><BR><I>Example Queries (Hint - click on the query to see it in the textarea):</I><BR>
-		<form id="sparql-form" enctype="application/x-www-form-urlencoded" method="post" Target="sparql_result">
+	<td>
+		<BR>
+		<div style="background-color: #F7F7F7; font-size: 16px; text-align: left">
+		<B>Quick Links:</B>
+		<UL>
+			<LI><a href="#queries">Demo Queries</a></Li>
+			<LI><a href="http://biordfmicroarray.googlecode.com/hg/template_genelist.xml">Excel template to convert a genelist to RDF</a> (Right-click+Save as ...)</Li>
+			<LI><a href="http://biordfmicroarray.googlecode.com/hg/genelist2rdf.html">Tool to convert genelists in Excel to RDF</a></Li>
+		</UL>
+		<BR>
+		</div>
+	</td>
+</TR>
+<TR>
+	<TD><BR><b>The Data Model:</b> The data model to describe microarray experiments can be separated in four provenance levels. Each level entails different subsets of information: the laboratory where the experiment was performed and the reference where the results were published are part of the institutional level; the samples used in the experiment, the list of differentially expressed genes and the disease being studied are part of the experimental context level; the statistical and significance analysis tools and results are part of the statistical and significance analysis level and the metadata regarding the dataset itself is part of the dataset description level. <BR></div> 
+	
+	<IMG SRC="provenance_levels2.png" WIDTH="1000" HEIGHT="600" BORDER="0" ALT="">
+	
+	</TD>
+</TR>
+<TR>
+		<TD style="color: #330066 font-size: 18px"><BR><B><a name="queries"></a>Example Queries:</B> <I>(Hint - click on the query to see it in the textarea)</I><BR>
+		<form id="sparql-form" enctype="application/x-www-form-urlencoded" method="post" action="http://ibl.mdanderson.org/~mhdeus/sparql_federation/endpoint.php?" Target="sparql_result">
 		
-
-		<select id="query_select" onClick="fillTheTextArea();alterActionIE(this);" size="7">
+		
+		<select id="query_select" onClick="fillTheTextArea();cacheOrQuery(this);" size="7">
+		
 				
 <option id="Q0" value="
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
@@ -282,10 +306,18 @@ Q6: Select all the genes determined to be differentially expressed in the neurol
               <option value="htmltab"  SELECTED >HTML Table</option>
               <option value="tsv" >TSV</option>
 	</select>
-		
-	<INPUT TYPE="submit" VALUE="Send Query" name="query_submited" id="query_submited"></FORM>
+	<span id="button_container">	
+		<INPUT TYPE="submit" VALUE="Send Query" name="query_submited" id="query_submited" style='display:inline'>
+		<INPUT TYPE="button" VALUE="See results" name="cached_query" id="cached_query" style='display: none'>
+	</span>
+	</FORM>
 	<INPUT TYPE="button" VALUE="Clear" onClick="javascript:document.getElementById('query').innerHTML=''">
 	</FORM>
+	</TD>
+</TR>
+<TR>
+	<TD>
+	<BR><BR><BR><BR>
 	</TD>
 </TR>
 
@@ -301,8 +333,8 @@ function fillTheTextArea() {
 	
 	return false;
 }
-function alterActionIE(obj) {
-
+function cacheOrQuery(obj) {
+	//if query is federated, change the button to see results; otherwise run the form
 		var ch = obj.children;
 		var sel = false;
 		for (var i=0; i<ch.length; i++) {
@@ -310,11 +342,30 @@ function alterActionIE(obj) {
 				var sel = i;
 			}
 		}
-		alterAction(sel);
+		if(sel==4 || sel==5){
+			
+			$('#cached_query').click( function () {
+				window.open("result_fedquery_q"+sel+".html","sparql_result");
+			});
+
+			$('#query').change(function () {
+				alert('This is a federated query, editing this query will not alter the results in this interface. However, you can execute federated queries by using the tool available at http://sourceforge.net/projects/swobjects/files/. To reset changes click on the query again.');
+			});
+			
+			$('#query_submited').hide();
+			$('#cached_query').show();
+			
+		}
+		else {
+			$('#query_submited').show();
+			$('#cached_query').hide();
+			$('#query').removeAttr('onchange');
+			
+		}
 	
 }
 
-function alterAction(q) {
+function alterButton(q) {
 	//this is necessary because for federated queries my endpoint does not work... Eric's does
 	var formButton = document.getElementById('query_submited');
 	switch (q) {
