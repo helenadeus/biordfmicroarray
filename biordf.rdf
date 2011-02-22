@@ -30,7 +30,7 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:biordf="http://purl.org/net/biordfmicroarray/ns#">
     <owl:Ontology rdf:about="http://purl.org/net/biordfmicroarray.owl">
-        <dc:contributor rdf:datatype="&xsd;string">Helena F. Deus, Jun Zhao, Michael Miller, Eric Prud'hommeaux, Satya S. Sahoo, Kei Cheung</dc:contributor>
+        <dc:contributor rdf:datatype="&xsd;string">Helena F. Deus, Jun Zhao, Michael Miller, Eric Prud'hommeaux, Satya S. Sahoo, M. Scott Marshall, Kei Cheung</dc:contributor>
     </owl:Ontology>
     
 
